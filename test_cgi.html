@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+</head>
+
+<body>
+
+	<p><b>Capture un nombre en el input:</b></p>
+	<form>
+		Nombre: <input type="text" id="name2" name="nombre" onkeyup="showHint(this.value)">
+	</form>
+	<p>Sugerencia: <span id="txtHint"></span></p>
+
+
+	<script>
+		function showHint(str) {
+			if (str.length == 0) {
+				document.getElementById("txtHint").innerHTML = "";
+				return;
+			} else {
+				var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function () {
+					if (this.readyState == 4 && this.status == 200) {
+						document.getElementById("txtHint").innerHTML = this.responseText;
+					}
+				};
+				var cinput = document.getElementById("name2").value;
+				xmlhttp.open("POST", "cgi-bin/testcgi2.exe", true);
+				xmlhttp.send("fname=Henry&lname=Ford" + "&temporal=" + cinput);
+				// xmlhttp.send("fname=Henry&lname=Ford");
+			}
+		}
+	</script>
+
+
+</body>
+
+</html>
